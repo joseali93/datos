@@ -71,6 +71,7 @@ public class Ventana {
 	 */
 	private void initialize() {
 		List<String> structureOne = Arrays.asList(
+				
 				"codigo_contrato", 
 				"codigo_del_proyecto", 
 				"disponibilidades_presupuestales", 
@@ -96,6 +97,7 @@ public class Ventana {
 				"valor_del_proyecto", 
 				"valor_ejecutado_del_proyecto");
 		List<String> structureTwo= Arrays.asList(
+				
 				 "c_digo_contrato",
 				 "c_digo_del_proyecto",
 				 "disponibilidades_presupuestales",
@@ -145,11 +147,14 @@ public class Ventana {
 				boolean i = true;
 				String payload = "";
 				String ruta = directorio.getText();
+				String Tokens = null;
 				borrarArchivo(ruta);
 				try {
 						StringTokenizer tokenizer = new StringTokenizer(listadoCodigos.getText(), ",");
 					    while (tokenizer.hasMoreTokens()) {
+					    	
 					        String token = tokenizer.nextToken();
+					        Tokens = token;
 					        response = consumer.query(token,
 								    HttpLowLevel.JSON_TYPE,
 								    "SELECT * LIMIT 20000");
@@ -176,6 +181,8 @@ public class Ventana {
 					    if(i){
 					    	mongoDB insertar = new mongoDB();
 					    	insertar.InsertarMongo(ruta);
+					    	insertar.InsertarMongoTokens(Tokens);
+
 					    	JOptionPane.showMessageDialog(null, "Datos traidos exitosamente!");
 							 System.exit(0);
 					    }else{

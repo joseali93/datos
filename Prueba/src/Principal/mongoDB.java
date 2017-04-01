@@ -68,12 +68,27 @@ public class mongoDB {
 			e.printStackTrace();
 		}
 	}
+	
+	public void InsertarMongoTokens(String Tokens) throws IOException, JSONException{
+		
+		
+		MongoClient mongoClient = null;
+		mongoClient = new MongoClient( "localhost" , 27017 );
+		DB db = mongoClient.getDB( "datos" );
+		DBCollection collection = db.getCollection("Tokens");
+		BasicDBObject doc = new BasicDBObject();
+		doc.put("Numero_Token", Tokens);
+		collection.insert(doc);
+		
+
+}
+
 	static String readFile(String path, Charset encoding) 
 			  throws IOException 
 			{
 			  byte[] encoded = Files.readAllBytes(Paths.get(path));
 			  return new String(encoded, encoding);
 	}
-	
+
 	
 }
